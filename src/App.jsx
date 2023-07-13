@@ -160,7 +160,7 @@ function App() {
           }
         ]}
         layout={{
-          width: visualizationEdgeLength, height: visualizationEdgeLength, title: 'Sales vs Avg MSRP across Countries',
+          width: visualizationEdgeLength, height: visualizationEdgeLength, title: 'Sales vs. Avg MSRP across Countries',
         }}
       />
 
@@ -168,8 +168,25 @@ function App() {
       <Plot
         data={[
           {
+            x: Object.keys(timeHeatData),
+            y: Object.values(timeHeatData),
+            type: 'scatter',
+
+          }
+        ]}
+        layout={{
+          width: visualizationEdgeLength, height: visualizationEdgeLength, title: 'Sales Historic Data',
+          showlegend: false
+        }}
+      />
+
+      
+      {/* For Heatmap */}
+      <Plot
+        data={[
+          {
             x: Object.keys(timeHeatData).map(elem => new Date(elem).getUTCFullYear()),
-            y: Object.keys(timeHeatData).map(elem => months[new Date(elem).getMonth()]),
+            y: Object.keys(timeHeatData).map(elem => months[new Date(elem).getUTCMonth()]),
             z: Object.values(timeHeatData),
             colorscale: [
               [0, '#880808'],
@@ -189,22 +206,7 @@ function App() {
           }
         }}
       />
-
-      {/* For Heatmap */}
-      <Plot
-        data={[
-          {
-            x: Object.keys(timeHeatData),
-            y: Object.values(timeHeatData),
-            type: 'scatter',
-
-          }
-        ]}
-        layout={{
-          width: visualizationEdgeLength, height: visualizationEdgeLength, title: 'Sales Historic Data',
-          showlegend: false
-        }}
-      />
+      
     </>
   )
 }
